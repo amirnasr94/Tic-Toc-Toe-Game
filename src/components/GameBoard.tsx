@@ -1,44 +1,13 @@
-import { useState } from "react";
-
-const initilalValue: any[][] = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
 export default function GameBoard({
   handleChangeSquer,
-  gameTurns,
+  board,
 }: {
   handleChangeSquer: (rowIndex: number, colIndex: number) => void;
-  gameTurns: any;
+  board: any[][];
 }) {
-  // const [gameBoard, setGameBoard] = useState(initilalValue);
-
-  // const handleClick = (rowIndex: number, colIndex: number) => {
-  //   setGameBoard((prevState) => {
-  //     const copyOfState = [...prevState];
-  //     copyOfState[rowIndex][colIndex] = activePlayer;
-  //     return copyOfState;
-  //   });
-  //   handleChangePlayer()
-  // };
-
-  // console.log(gameBoard);
-  let gameBoard = initilalValue;
-
-  for (const turn of gameTurns) {
-    const {
-      square: { rowIndex, colIndex },
-      player,
-    } = turn;
-
-    initilalValue[rowIndex][colIndex] = player;
-  }
-
   return (
     <ol className="w-1/2 mx-auto mt-10 grid grid-cols-3">
-      {gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((col, colIndex) => (
@@ -49,6 +18,7 @@ export default function GameBoard({
                 <button
                   className="w-full h-full text-black italic text-6xl font-extrabold"
                   onClick={() => handleChangeSquer(rowIndex, colIndex)}
+                  disabled={col !== null}
                 >
                   {col}
                 </button>
